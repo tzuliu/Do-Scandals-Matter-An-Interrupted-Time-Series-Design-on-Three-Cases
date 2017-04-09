@@ -1,6 +1,9 @@
 # Do-Scandals-Matter-An-Interrupted-Time-Series-Design-on-Three-Cases
 
+This repository contains:
 
-1. German(Overall).R---This file is for generating the time-series approval data of CDU/CSU and FDP after 2000. Furthermore, this file can also generating the overall distribution of the approval data of CDU/CSU and FDP.
+1. Data sets created by Jennings and Wlezien (2016).
 
-2. UK(Overall).R---This file is for generating the time-series approval data of the Consevative and the Labour after 2000. Furthermore, this file can also generating the overall distribution of the approval data of the Labour.
+2. R files for analyses and figures.
+
+3. GAUSS codes for breakpoint detection developed by Bai and Perron (1998).
