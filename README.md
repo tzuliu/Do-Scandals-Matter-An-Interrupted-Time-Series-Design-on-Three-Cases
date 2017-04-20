@@ -8,4 +8,4 @@ This repository contains:
 
 3. GAUSS codes for breakpoint detection developed by Bai and Perron (1998).
 
-<sup>1Jeenings, Will and Christopher Wlezien. 2016. "The Timeline of Elections: A Comparative Perspective." *American Journal of Political Science* 60(1): 219-233.<\sup>
+<sup>1.<\sup> Jeenings, Will and Christopher Wlezien. 2016. "The Timeline of Elections: A Comparative Perspective." *American Journal of Political Science* 60(1): 219-233.
