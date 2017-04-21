@@ -1,6 +1,6 @@
 # Do-Scandals-Matter-An-Interrupted-Time-Series-Design-on-Three-Cases
 
-This repository contains:
+## This repository contains:
 
 1. Data sets created by Jennings and Wlezien (2016).<sup>1</sup>
 
