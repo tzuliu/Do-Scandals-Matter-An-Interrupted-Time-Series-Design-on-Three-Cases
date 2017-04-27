@@ -12,4 +12,4 @@
 
 6. `German(CDU)2M1.R`---This file provides the plot of distribution, tests regarding stationarity and the DGS, the plot of the OLS results, and the plot of break points.
 
-7. ``German(CDU)2M1.R.ipynb`---This file provides the results of `German(CDU)2M1.R` through notebook.
+7. `German(CDU)2M1.R.ipynb`---This file provides the results of `German(CDU)2M1.R` through notebook.
