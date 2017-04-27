@@ -100,9 +100,11 @@ pacf(ger21r.cdu$residual)
 Box.test(ger21r.cdu$residuals, lag=20, type="Ljung-Box")
 
 
-ger21r.cdu.pred1 <- ger21r.cdu$coef[4] + ger21r.cdu$coef[5]*ger21r$t + 													ger21r.cdu$coef[6]*ger21r$scandal2 + ger21r.cdu$coef[7]*ger21r$t*ger21r$scandal2
+ger21r.cdu.pred1 <- ger21r.cdu$coef[4] + ger21r.cdu$coef[5]*ger21r$t +
+					ger21r.cdu$coef[6]*ger21r$scandal2 + ger21r.cdu$coef[7]*ger21r$t*ger21r$scandal2
 
-ger21r.cdu.pred2 <- ger21r.cdu$coef[4] + ger21r.cdu$coef[5]*ger21r$t + 													ger21r.cdu$coef[6]*ger21r$scandal3 + ger21r.cdu$coef[7]*ger21r$t*ger21r$scandal3
+ger21r.cdu.pred2 <- ger21r.cdu$coef[4] + ger21r.cdu$coef[5]*ger21r$t +
+					ger21r.cdu$coef[6]*ger21r$scandal3 + ger21r.cdu$coef[7]*ger21r$t*ger21r$scandal3
 
 ger21r.cdu.diff <- ger21r.cdu.pred1[61] - ger21r.cdu.pred2[61]; ger21r.cdu.diff
 ## difference is 0.4562
