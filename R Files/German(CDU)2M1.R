@@ -140,21 +140,18 @@ Corner_text(text=c("Difference: 0.4562", "Date: 12/02/2010"))
 dev.off()
 	  
 ###plot of break point
-ger21r$scandal1 <- c(rep(1,26), rep(0,(120-26)))
-ger21r$scandal2 <- c(rep(0, 25), rep(1, (40-25)), rep(0,(120-40)))
-ger21r$scandal3 <- c(rep(0, 39), rep(1,(120-39)))
-ger21r.cdu1 <- arimax(ger21r$CDU[1:26], order=c(3,0,0)); ger21r.cdu1
-ger21r.cdu2 <- arimax(ger21r$CDU[27:39], order=c(3,0,0)); ger21r.cdu2
-ger21r.cdu3 <- arimax(ger21r$CDU[40:120], order=c(3,0,0)); ger21r.cdu3
+ger21r.cdu1 <- mean(ger21r$CDU[1:26]); ger21r.cdu1
+ger21r.cdu2 <- mean(ger21r$CDU[27:46]); ger21r.cdu2
+ger21r.cdu3 <- mean(ger21r$CDU[47:120]); ger21r.cdu3
 pdf("CDU21bp.pdf", onefile=FALSE, width=6.75, height=4)
 plot(y=ger21r$CDU, x=time(ger21r), type='l', ylab="CDU/CSU Approval Rate", xlab="Time",
 	 main="Estimated Break Point(s) of the WikiLeaks Scandal (CDU/CSU)")
 points(time(ger21r), ger21r$CDU,
        col="pink",
        pch=20)
-lines(y=ger21r.cdu1$coef[4]*ger21r$scandal1[1:26], x=time(ger21r)[1:26], lty=1, col="red")
-lines(y=ger21r.cdu2$coef[4]*ger21r$scandal2[26:40], x=time(ger21r)[26:40], lty=1, col="red")
-lines(y=ger21r.cdu3$coef[4]*ger21r$scandal3[40:120], x=time(ger21r)[40:120], lty=1, col="red")
+lines(y=rep(ger21r.cdu1,26), x=time(ger21r)[1:26], lty=1, col="red")
+lines(y=rep(ger21r.cdu2, (47-26+1)), x=time(ger21r)[26:47], lty=1, col="red")
+lines(y=rep(ger21r.cdu3, (120-47+1)), x=time(ger21r)[47:120], lty=1, col="red")
 abline(v=time(ger21r)[61], lty=2)
 abline(v=time(ger21r)[2], lty=2)
 abline(v=time(ger21r)[26], lty=2)
@@ -169,71 +166,6 @@ Corner_text <- function(text, location="bottomright"){
 Corner_text(text=c("Scandal Date: 12/02/2010","Break Point(1): 11/18/2010","Break Point(2): 10/28/2010"))
 text(x = time(ger21r)[61], y = 29, paste("Scandal\n", "Date"), col="#3C3C3C", cex=0.8)
 text(x = time(ger21r)[26], y = 29, paste("Break\n", "Point(2)"), col="#3C3C3C", cex=0.8)
-text(x = time(ger21r)[40], y = 29, paste("Break\n", "Point(1)"), col="#3C3C3C", cex=0.8)
+text(x = time(ger21r)[47], y = 29, paste("Break\n", "Point(1)"), col="#3C3C3C", cex=0.8)
 dev.off()
- 				
-###############sensitivity analysis----changing the range of the rate in 2010-12-02
-cduorig <- ger21r$CDU
-cdusens1 <- seq(32, 34, 0.01)
-cdufitsens1 <- list()
-for(i in 1 : length(cdusens1)){
-	ger21r$CDU[60] <- cdusens1[i]
-	ger21r.cdut <- arimax(ger21r$CDU, order=c(1,0,0), 
-					xreg=cbind(ger21r$t, ger21r$scandal2, ger21r$t*ger21r$scandal2))
-	cdufitsens1[[i]] <- ger21r.cdut$coef[2] + ger21r.cdut$coef[3]*ger21r$t + 												ger21r.cdut$coef[4]*ger21r$scandal2 + 																ger21r.cdut$coef[5]*ger21r$t*ger21r$scandal2
-}
-
-
-###############################################################################################
-###############################################################################################
-###############################################################################################
-###############################################################################################
-###sensitivity plot 1
-pdf("CDUsens121.pdf", onefile=FALSE, width=6.75, height=4)     
-plot(y=ger21r$CDU, x=time(ger21r), type='l', ylab="CDU/CSU", xlab="Time",
-	main="Sensitivity Plot 1 (CDU/CSU)")
-for(i in 1 : length(cdusens1)){
-	lines(y=cdufitsens1[[i]][61:120], x=time(ger21r)[61:120], col="#00000008")
-}
-lines(y=ger21r.cdu.pred2[1:61], x=time(ger21r)[1:61], lty=2, col="blue")
-lines(y=ger21r.cdu.pred1[61:length(ger21r.cdu.pred1)], x=time(ger21r)[61:length(ger21r.cdu.pred1)], 
-	  lty=2, col="red")
-abline(v=time(ger21r)[61], lty=2)
-dev.off()
-
-###############sensitivity analysis----comparing 2010-12-02 and 2010-12-03
-###############
-ger21r$CDU[60] <- cduorig
-ger21r$scandal4 <- c(rep(0, 62), rep(1, nrow(ger21r)-62))
-
-## estimating the model
-ger21r.cdusens2 <- arimax(ger21r$CDU, order=c(1,0,0), 
-					xreg=cbind(ger21r$t, ger21r$scandal3, ger21r$t*ger21r$scandal3)); ger21r.cdusens2
-
-ger21r.cdusens.pred1 <- (ger21r.cdusens2$coef[2] + ger21r.cdusens2$coef[3]*ger21r$t 
-					    + ger21r.cdusens2$coef[4]*ger21r$scandal3 					  
- 					    + ger21r.cdusens2$coef[5]*ger21r$t*ger21r$scandal3)
-
-ger21r.cdusens.pred2 <- (ger21r.cdusens2$coef[2] + ger21r.cdusens2$coef[3]*ger21r$t 
-					    + ger21r.cdusens2$coef[4]*ger21r$scandal4 					  
- 					    + ger21r.cdusens2$coef[5]*ger21r$t*ger21r$scandal4)	  
-
-ger21r.cdusens.diff <- ger21r.cdusens.pred1[62] - ger21r.cdusens.pred2[62]; ger21r.cdusens.diff
-## difference is 0.4562
-
-### sensitivity plot 2
-pdf("CDUsens221.pdf", onefile=FALSE, width=6.75, height=4)                                                    
-plot(y=ger21r$CDU, x=time(ger21r), type='l', ylab="CDU/CSU", xlab="Time",
-	main="Sensitivity Plot 2 (CDU/CSU)")
-points(time(ger21r),ger21r$CDU,
-       col="pink",
-       pch=20)
-lines(y=ger21r.cdusens.pred2[1:62], x=time(ger21r)[1:62], lty=2, col="blue")
-lines(y=ger21r.cdusens.pred1[62:length(ger21r.cdusens.pred1)],x=time(ger21r)	
-	  [62:length(ger21r.cdusens.pred1)], lty=2, col="red")
-abline(v=time(ger21r)[62], lty=2)
-Corner_text <- function(text, location="topleft"){
-	legend(location, legend=text, bty="n", pch=NA)
-}
-Corner_text(text=c("Difference: 0.4562", "Date: 12/02/2010"))
-dev.off()
+	
