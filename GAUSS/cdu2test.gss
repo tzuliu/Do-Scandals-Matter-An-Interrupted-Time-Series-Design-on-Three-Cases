@@ -1,0 +1,45 @@
+chdir C:\Users\Windows.Windows-PC\Desktop\;
+loadm test[]=cdu2test.csv;
+test=reshape(test, 121, 3);
+y=test[2:121,2];
+T = rows(y);
+z=ones(T,1);
+bigt=rows(y);                        @set effective sample size@
+x=zeros(T,1);
+q=cols(z);
+p=0;
+m=5;                         @maximum number of structural changes allowed@
+eps1=.1;
+h=int(eps1*bigt);   
+/* the following are options if p > 0.
+----------------------------------- */
+fixb=0;                     @set to 1 if use fixed initial values for beta@
+betaini=0;                  @if fixb=1, load the initial value of beta.@
+maxi=20;                    @maximum number of iterations for the nonlinear procedure to obtain global minimizers.@
+printd=1;                   @set to 1 if want the output from the iterations to be printed.@
+eps=0.0001;                 @criterion for the convergence.@
+/*--------------------------------- */
+robust=1;
+prewhit=0;                   @set to 1 if want to apply AR(1) prewhitening prior to estimating the long run covariance matrix@
+hetdat=1;                   @Option for the construction of the F-tests. Set to 1 if want to allow different moment matrices of the regressors accross segments. if hetdat = 0, the same moment matrices are assumed for each segment and estimated from the full sample. It is recommended to set hetdat=1.  if p > 0 set hetdat = 1.@
+hetvar=1;                   @Option for the construction of the F-tests. Set to 1 if want to allow for the variance of the residuals to be different across segments. if hetvar=0, the variance of the residuals is assumed constant across segments and constructed from the full sample. This option is not available when robust = 1.@
+hetomega=1-robust;                @Used in the construction of the confidence intervals for the break dates. if hetomega=0, the long run covariance matrix of zu is assumed identical accross segments (the variance of the errors u if robust = 0).@
+hetq=1;                    @Used in the construction of the confidence intervals for the break dates. if hetq=0, the moment matrix of the data is assumed identical accross segments.@
+
+doglobal=1;                 @set to 1 if want to call the procedure to obtain global minimizers.@
+dotest=1;                   @set to 1 if want to construct the sup F, UDmax and WDmax tests. doglobal must be set to 1 to run this procedure.@
+dospflp1=1;                 @set to 1 if want to construct the sup(l+1|l) tests where under the null the l breaks are obtained using global minimizers. doglobal must be set to 1 to run this procedure.@
+doorder=0;                  @set to 1 if want to call the procedure that selects the number of breaks using information criteria. doglobal must be set to 1 to run this procedure.@
+dosequa=1;                  @set to 1 if want to estimate the breaks sequentially and estimate the number of breaks using the supF(l+1|l) test.@
+dorepart=0;                 @set to 1 if want to modify the break dates obtained from the sequential method using the repartition method of Bai (1995), Estimating breaks one at a time. This is needed for the confidence intervals obtained with estim below to be valid.@
+
+estimbic=0;                  @set to 1 if want to estimate the model with the number of breaks selected by BIC.@
+estimlwz=0;                  @set to 1 if want to estimate the model with the number of breaks selected by LWZ.@
+estimseq=1;                 @set to 1 if want to estimate the model with the number of breaks selected using the sequential procedure.@
+estimrep=0;                 @set to 1 if want to esimate the model with the breaks selected using the repartition method.@
+estimfix=0;                  @set to 1 if want to estimate the model with a prespecified number of breaks equal to fixn set below@
+fixn=0;
+
+call pbreak(bigt,y,z,q,m,h,eps1,robust,prewhit,hetomega,hetq,doglobal,dotest,dospflp1,doorder,dosequa,dorepart,estimbic,estimlwz,estimseq,estimrep,estimfix,fixb,x,q,eps,maxi,fixb,betaini,printd,hetdat,hetvar,fixn);
+
+#include C:\Users\Windows.Windows-PC\Desktop\brcode.src;            @set the path to where you store the file brcode.txt@
