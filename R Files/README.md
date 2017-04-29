@@ -13,3 +13,7 @@
 6. `German(CDU)2M1.R`---This file provides the plot of distribution, tests regarding stationarity and the DGS, the plot of the OLS results, and the plot of break points of the **CDU** under the case of **the WikiLeaks scandal**.
 
 7. `German(CDU)2M1.R.ipynb`---This file provides the results of `German(CDU)2M1.R` through notebook.
+
+8. `German(FDP)2M1.R`---This file provides the plot of distribution, tests regarding stationarity and the DGS, and the plot of the OLS results of the **FDP** under the case of **the WikiLeaks scandal**.
+
+9. `German(FDP)2M1.R.ipynb`---This file provides the results of `German(FDP)2M1.R` through notebook.
