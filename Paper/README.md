@@ -4,7 +4,7 @@ This repository contains different versions of this project. Please **DO NOT** c
 
 1. `Version 1.0` is the version for POL 210.
 
-2. `Version 2.0` is the version which fixes Figure 4-a.
+2. `Version 2.0` is the version which fixes Figure 4-b.
 
 3. `Version 3.0` fixes grammar.
 
